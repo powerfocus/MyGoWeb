@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"log"
 	"strings"
 )
 
@@ -32,4 +33,10 @@ func (c *Commons) AntCheck(cl string, cr string) bool {
 		return true
 	}
 	return false
+}
+
+func (c *Commons) Err(err error) {
+	if err != nil {
+		log.Fatalln(err)
+	}
 }

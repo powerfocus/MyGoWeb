@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"html/template"
-	"log"
 	"net/http"
 	"py.org/MyGoWeb/config"
+	"py.org/MyGoWeb/core"
+	"py.org/MyGoWeb/utils"
 )
 
 type ArticleController struct{}
@@ -14,9 +14,6 @@ func NewArticleController() ArticleController {
 }
 
 func (c *ArticleController) Index(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles(config.TemplatesPath + "article.html")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	_ = t.Execute(w, nil)
+	err := core.Template.Files(config.TemplatesPath+"article.html").Map(w, nil)
+	utils.Common.Err(err)
 }

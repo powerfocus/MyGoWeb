@@ -3,7 +3,7 @@ package core
 import (
 	"html/template"
 	"io"
-	"log"
+	"py.org/MyGoWeb/utils"
 )
 
 var (
@@ -28,9 +28,7 @@ func NewTpl() Tpl {
 func (c *Tpl) Files(filenames ...string) *Tpl {
 	t, err := template.ParseFiles(filenames...)
 	c.t = t
-	if err != nil {
-		log.Fatalln(err)
-	}
+	utils.Common.Err(err)
 	return c
 }
 

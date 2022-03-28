@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"py.org/MyGoWeb/config"
 	"py.org/MyGoWeb/core"
+	"py.org/MyGoWeb/utils"
 	"strings"
 )
 
@@ -16,16 +17,12 @@ func NewIndexController() IndexController {
 
 func (c *IndexController) Home(w http.ResponseWriter, r *http.Request) {
 	err := core.Template.Files(config.TemplatesPath+"index.html").Map(w, nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	utils.Common.Err(err)
 }
 
 func (c *IndexController) Form(w http.ResponseWriter, r *http.Request) {
 	err := core.Template.Files(config.TemplatesPath+"user.html").Map(w, nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	utils.Common.Err(err)
 }
 
 func (c *IndexController) Act(w http.ResponseWriter, r *http.Request) {
@@ -33,9 +30,7 @@ func (c *IndexController) Act(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln("must POST.")
 	}
 	err := r.ParseForm()
-	if err != nil {
-		log.Fatalln(err)
-	}
+	utils.Common.Err(err)
 	userName := r.PostFormValue("username")
 	pwd := r.PostFormValue("pwd")
 
@@ -46,8 +41,6 @@ func (c *IndexController) Act(w http.ResponseWriter, r *http.Request) {
 		data["msg"] = "系统发生错误！登录失败，请确认用户名和密码后重试。"
 
 		err := core.Template.Files(config.TemplatesPath+"err.html").Map(w, data)
-		if err != nil {
-			log.Fatalln(err)
-		}
+		utils.Common.Err(err)
 	}
 }
