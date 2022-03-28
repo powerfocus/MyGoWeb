@@ -11,3 +11,8 @@ const (
 	Prefix = "/static/"
 	Dir    = PublicPath + "static"
 )
+
+const (
+	SystemName = "MyGoWeb"
+	Version    = 1.0
+)

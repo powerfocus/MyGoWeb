@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 	"py.org/MyGoWeb/config"
+	"py.org/MyGoWeb/core"
 	"strings"
 )
 
@@ -15,19 +15,14 @@ func NewIndexController() IndexController {
 }
 
 func (c *IndexController) Home(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles(config.TemplatesPath + "index.html")
+	err := core.Template.Files(config.TemplatesPath+"index.html").Map(w, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	_ = t.Execute(w, nil)
 }
 
 func (c *IndexController) Form(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles(config.TemplatesPath + "user.html")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	err = t.Execute(w, nil)
+	err := core.Template.Files(config.TemplatesPath+"user.html").Map(w, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -47,14 +42,10 @@ func (c *IndexController) Act(w http.ResponseWriter, r *http.Request) {
 	if strings.EqualFold("admin", userName) && strings.EqualFold("123", pwd) {
 		http.Redirect(w, r, "/admin", http.StatusFound)
 	} else {
-		t, err := template.ParseFiles(config.TemplatesPath + "err.html")
-		if err != nil {
-			log.Fatalln(err)
-		}
 		data := make(map[string]interface{}, 5)
 		data["msg"] = "系统发生错误！登录失败，请确认用户名和密码后重试。"
 
-		err = t.Execute(w, data)
+		err := core.Template.Files(config.TemplatesPath+"err.html").Map(w, data)
 		if err != nil {
 			log.Fatalln(err)
 		}

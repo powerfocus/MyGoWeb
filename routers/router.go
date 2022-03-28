@@ -8,19 +8,12 @@ import (
 )
 
 func init() {
-	/*core.Serv.Handle("/", indexController.Home)
-	core.Serv.Handle("/user/form", indexController.Form)
-	core.Serv.Handle("/user/act", indexController.Act)
-
-	core.Serv.Handle("/admin", adminIndexController.Index)
-
-	core.Serv.Handle("/admin/art", articleController.Index)*/
+	R := core.NewRouter()
+	defer R.Do()
 
 	indexController := controller.NewIndexController()
 	adminIndexController := controller.NewAdminIndexController()
 	articleController := controller.NewArticleController()
-	R := core.NewRouter()
-	defer R.Do()
 	R.Register("/", indexController.Home)
 	R.Register("/user/form", indexController.Form)
 	R.Register("/user/act", indexController.Act)

@@ -43,7 +43,6 @@ func (c *Filter) Remove(key string) {
 func (c *Filter) Handle(handle HttpHandle) HttpHandle {
 	return func(w http.ResponseWriter, r *http.Request) {
 		for path, h := range c.Filters {
-			log.Println(path, ",", r.RequestURI)
 			if utils.Common.AntCheck(r.RequestURI, path) {
 				h.DoFilter(w, r)
 				break
@@ -53,14 +52,3 @@ func (c *Filter) Handle(handle HttpHandle) HttpHandle {
 		handle(w, r)
 	}
 }
-
-/*func (c *Filter) checkUri(uri string, regex string) bool {
-	u := strings.TrimSpace(uri)
-	p := strings.TrimSpace(regex)
-	if strings.EqualFold(u, p) {
-		return true
-	} else if strings.EqualFold(u + "/**", p) {
-		return true
-	}
-	return false
-}*/

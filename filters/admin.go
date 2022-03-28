@@ -8,5 +8,5 @@ import (
 type AdminFilter struct{}
 
 func (c *AdminFilter) DoFilter(w http.ResponseWriter, r *http.Request) {
-	log.Println("AdminFilter.")
+	log.Println("admin filter")
 }

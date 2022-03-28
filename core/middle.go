@@ -51,11 +51,8 @@ func (c *Middle) MiddleCount() int {
 
 func (c *Middle) Do(path string, w http.ResponseWriter, r *http.Request) {
 	if c.MiddleCount() > 0 {
-		log.Println("process middle")
+		log.Println("start process middle")
 		for name, mid := range c.Middles {
-			/*if strings.EqualFold(path, name) || strings.EqualFold(path + "/**", name) {
-				mid.DoMid(w, r)
-			}*/
 			if utils.Common.AntCheck(path, name) {
 				mid.DoMid(w, r)
 				break

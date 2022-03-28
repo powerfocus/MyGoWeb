@@ -12,5 +12,5 @@ func NewAdminMid() AdminMid {
 }
 
 func (c *AdminMid) DoMid(w http.ResponseWriter, r *http.Request) {
-	log.Println("AdminMid do")
+	log.Println("admin middle")
 }
